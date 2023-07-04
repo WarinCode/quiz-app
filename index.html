@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <form class="form-container">
+      <header>
+        <img src="./img/exam.png" id="header-img">
+        <h1 id="header-title">เริ่มทำข้อสอบข้อสอบมีจำนวนทั้งหมด 10 ข้อ</h1>
+      </header>
+      <div id="timer">
+        <span><i class="bi bi-stopwatch-fill"></i><p id="render-time"></p></span>
+      </div>
+      <div class="box">
+        <header>
+          <h1 id="main-question"></h1>
+        </header>
+        <div class="item">
+          <input type="radio" value="a" id="answer-a" class="answer" name="a" />
+          <label for="answer-a" id="label-a"></label>
+        </div>
+        <div class="item">
+          <input type="radio" value="b" id="answer-b" class="answer" name="b" />
+          <label for="answer-b" id="label-b"></label>
+        </div>
+        <div class="item">
+          <input type="radio" value="c" id="answer-c" class="answer" name="c" />
+          <label for="answer-c" id="label-c"></label>
+        </div>
+        <div class="item">
+          <input type="radio" value="d" id="answer-d" class="answer" name="d" />
+          <label for="answer-d" id="label-d"></label>
+        </div>
+        <br />
+      </div>
+      <div class="btn-group">
+        <button class="btn-start" >เริ่ม</button>       
+        <button class="btn-reset" type="reset" >ยกเลิกการเลือก</button>
+        <button class="btn-submit" type="submit">ทำข้อต่อไป</button>          
+      </div>
+    </form>
+    <script src="dist/app.js"></script>
+  </body>
+</html>

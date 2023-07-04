@@ -1,0 +1,108 @@
+[
+    {
+        "number": 1,
+        "ref_id": 1252,
+        "title": "นามสกุลของไฟล์ที่สร้างด้วย Notepad เพื่อเขียนเว็บ คือ",
+        "a": ".html",
+        "b": ".jpg",
+        "c": ".doc",
+        "d": ".exe",
+        "corret": "a"
+    },
+    {
+        "number": 2,
+        "ref_id": 4281,
+        "title": "โปรแกรมที่ใช้เขียนคำสั่งภาษา html คือข้อใด",
+        "a": "google chrome",
+        "b": "Microsoft word",
+        "c": "Adobe dreamweaver",
+        "d": "Notepad",
+        "corret": "d"
+    },
+    {
+        "number": 3,
+        "ref_id": 2490,
+        "title": "HTML ย่อมาจากคำว่าอะไร",
+        "a": "Hydroponic Markup Language",
+        "b": "Hygienic Manual Language",
+        "c": "Hypertext Markup Language",
+        "d": "Hello Markup Language",
+        "corret": "c"
+    },
+    {
+        "number": 4,
+        "ref_id": 8932,
+        "title": "คำสั่งในข้อใดเป็นคำสั่งกำหนดสีให้กับพื้นหลังของเว็บเพจ",
+        "a": "<body \"blue\">",
+        "b": "<body background = \"blue\">",
+        "c": "<body color = \"blue\">",
+        "d": "<body bgcolor = \"blue\">",
+        "corret": "d"
+    },
+    {
+        "number": 5,
+        "ref_id": 4115,
+        "title": "คำสั่งในข้อใดใช้สำหรับขึ้นบรรทัดใหม่",
+        "a": "<pr>",
+        "b": "<hr>",
+        "c": "<br>",
+        "d": "<b>",
+        "corret": "c"
+    },
+    {
+        "number": 6,
+        "ref_id": 9101,
+        "title": "การเขียนโปรแกรมด้วยภาษา HTML นั้นจะต้องขึ้นต้น และลงท้ายด้วยคำสั่งในข้อใด",
+        "a": "[begin]…. [/begin]",
+        "b": "<html>… </html>",
+        "c": "<begin>… </begin>",
+        "d": "[html]… [/html]",
+        "corret": "b"
+    },
+    {
+        "number": 7,
+        "ref_id": 8273,
+        "title": "คำสั่ง <HEAD>....</HEAD> ใช้สำหรับระบุเกี่ยวกับเอกสาร HTML ในส่วนใด",
+        "a": "ส่วนเนื้อหาของเอกสาร",
+        "b": "ส่วนหัวหรือชื่อเรื่องของเอกสาร",
+        "c": "ส่วนการปิดท้ายของเอกสาร",
+        "d": "ส่วนรายการหลักของเอกสาร",
+        "corret": "b"
+    },
+    {
+        "number": 8,
+        "ref_id": 8243,
+        "title": "คำสั่ง <title>...</title> ใช้สำหรับระบุเกี่ยวกับเอกสาร HTML ในส่วนใด",
+        "a": "ส่วนหัวหรือชื่อเรื่องของเอกสาร",
+        "b": "ส่วนเนื้อหาของเอกสาร",
+        "c": "ส่วนการปิดท้ายของเอกสาร",
+        "d": "ส่วนรายการหลักของเอกสาร",
+        "corret": "a"
+    },
+    {
+        "number": 9,
+        "ref_id": 9121,
+        "title": "ส่วนของเนื้อหาของเอกสาร HTML จะอยู่ระหว่างป้ายระบุคำสั่ง (tag) ในข้อใด",
+        "a": "<title>...</title>",
+        "b": "<head>...</head>",
+        "c": "<html>...</html>",
+        "d": "<body>...</body>",
+        "corret": "d"
+    },
+    {
+        "number": 10,
+        "ref_id": 5231,
+        "title": "คำสั่งในข้อใด ใช้สำหรับ ขีดเส้นคั่นในแนวนอน",
+        "a": "<b>",
+        "b": "<p>",
+        "c": "<center>",
+        "d": "<hr>",
+        "corret": "d"
+    },
+    {
+        "reference": {
+            "url": "https://quizizz.com/admin/quiz/5ecf651145675b001c1ea579/-html-",
+            "exam": 10
+        }
+    }
+]
