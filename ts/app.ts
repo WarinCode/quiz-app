@@ -96,7 +96,7 @@ async function start(): Promise<void> {
 
       (async (): Promise<void> => {
         changeQuestion();
-        console.log(answer);
+        // console.log(answer);
       })();
 
       formEL.addEventListener("submit", async (e: Event): Promise<void> => {
