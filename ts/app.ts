@@ -133,7 +133,7 @@ async function start(): Promise<void> {
       }
 
       async function scoreSummary(s: number): Promise<string> {
-        return `คุณสอบได้คะแนน ${s} คะแนน`;
+        return `คุณสอบได้ ${s} คะแนน`;
       }
 
       async function repeatExam(): Promise<void> {
