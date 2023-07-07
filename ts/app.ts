@@ -37,6 +37,7 @@ const inputEL: Input = {
   ans_d: document.querySelector("#answer-d")!,
 };
 
+// const userAnswer: string[] = [];
 let minutes: number = 0;
 let seconds: number = 0;
 
@@ -111,19 +112,28 @@ async function start(): Promise<void> {
           finish();
         } else if (completed) {
           const ask = confirm(
-            "Error! คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?"
+            "คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?"
           );
           ask ? repeatExam() : 0;
         }
       });
 
-      async function finish(): Promise<void>{
+      async function finish(): Promise<void> {
+        /* // การคำนวณคะแนนอีกวิธี
+          (async (): Promise<void> => {
+            if (completed) {
+              answer.forEach(async (item: string, idx: number): Promise<void> => {
+              if (item === userAnswer[idx]) score += 1;
+            });
+          }
+        })();
+         */
         boxEL.style.display = "none";
         btnResetEL.style.display = "none";
         headerEL.style.display = "contents";
         imgEL.style.display = "flex";
         imgEL.style.margin = "auto";
-        imgEL.setAttribute("src" , "../img/task-actions.png");
+        imgEL.setAttribute("src", "../img/task-actions.png");
         timerEL.style.display = "none";
         btnEL.style.position = "relative";
         btnEL.style.top = "70%";
@@ -137,7 +147,7 @@ async function start(): Promise<void> {
       }
 
       async function repeatExam(): Promise<void> {
-        (async ():Promise<void> => {
+        (async (): Promise<void> => {
           boxEL.style.display = "contents";
           btnResetEL.style.display = "block";
           btnEL.style.display = "block";
@@ -149,6 +159,7 @@ async function start(): Promise<void> {
         completed = !completed;
         count = idx = score = 0;
         minutes = seconds = 0;
+        // userAnswer.length = 0;
         console.clear();
         changeQuestion();
       }
@@ -193,6 +204,9 @@ async function start(): Promise<void> {
 
         const choiceIdx: number = arrayBool.indexOf(true);
         const selectChoice: string = allChoice[choiceIdx].value.toString();
+
+        // userAnswer.push(selectChoice);
+        // console.log(userAnswer);
 
         if (
           selectChoice === data[idx].corret &&

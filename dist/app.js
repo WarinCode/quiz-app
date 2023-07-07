@@ -11,6 +11,7 @@ const inputEL = {
     ans_c: document.querySelector("#answer-c"),
     ans_d: document.querySelector("#answer-d"),
 };
+// const userAnswer: string[] = [];
 let minutes = 0;
 let seconds = 0;
 const btnStartEL = document.querySelector(".btn-start");
@@ -66,7 +67,7 @@ async function start() {
         });
         (async () => {
             changeQuestion();
-            console.log(answer);
+            // console.log(answer);
         })();
         formEL.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -79,11 +80,20 @@ async function start() {
                 finish();
             }
             else if (completed) {
-                const ask = confirm("Error! คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?");
+                const ask = confirm("คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?");
                 ask ? repeatExam() : 0;
             }
         });
         async function finish() {
+            /* // การคำนวณคะแนนอีกวิธี
+              (async (): Promise<void> => {
+                if (completed) {
+                  answer.forEach(async (item: string, idx: number): Promise<void> => {
+                  if (item === userAnswer[idx]) score += 1;
+                });
+              }
+            })();
+             */
             boxEL.style.display = "none";
             btnResetEL.style.display = "none";
             headerEL.style.display = "contents";
@@ -98,7 +108,7 @@ async function start() {
             headerEL.innerHTML = `${await scoreSummary(score)}`;
         }
         async function scoreSummary(s) {
-            return `คุณสอบได้คะแนน ${s} คะแนน`;
+            return `คุณสอบได้ ${s} คะแนน`;
         }
         async function repeatExam() {
             (async () => {
@@ -113,6 +123,7 @@ async function start() {
             completed = !completed;
             count = idx = score = 0;
             minutes = seconds = 0;
+            // userAnswer.length = 0;
             console.clear();
             changeQuestion();
         }
@@ -149,6 +160,8 @@ async function start() {
                 : findBool(false);
             const choiceIdx = arrayBool.indexOf(true);
             const selectChoice = allChoice[choiceIdx].value.toString();
+            // userAnswer.push(selectChoice);
+            // console.log(userAnswer);
             if (selectChoice === data[idx].corret &&
                 selectChoice === answer[idx] &&
                 count <= 10) {
