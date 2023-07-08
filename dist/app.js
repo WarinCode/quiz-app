@@ -11,6 +11,12 @@ const inputEL = {
     ans_c: document.querySelector("#answer-c"),
     ans_d: document.querySelector("#answer-d"),
 };
+const allChoice = [
+    inputEL.ans_a,
+    inputEL.ans_b,
+    inputEL.ans_c,
+    inputEL.ans_d,
+];
 // const userAnswer: string[] = [];
 let minutes = 0;
 let seconds = 0;
@@ -62,6 +68,7 @@ async function start() {
         const MAX = 10;
         const answer = [];
         let completed = false;
+        let statusError = false;
         data.filter(async (a) => {
             answer.push(a.corret);
         });
@@ -71,17 +78,21 @@ async function start() {
         })();
         formEL.addEventListener("submit", async (e) => {
             e.preventDefault();
-            calculateScore();
-            idx += 1;
-            count += 1;
-            changeQuestion();
-            if (count === MAX) {
-                completed = true;
-                finish();
+            if (count < MAX && !statusError) {
+                calculateScore();
+                if (!statusError) {
+                    idx += 1;
+                    count += 1;
+                    changeQuestion();
+                }
             }
-            else if (completed) {
+            if (completed) {
                 const ask = confirm("คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?");
                 ask ? repeatExam() : 0;
+            }
+            else if (count === MAX) {
+                completed = true;
+                finish();
             }
         });
         async function finish() {
@@ -98,17 +109,19 @@ async function start() {
             btnResetEL.style.display = "none";
             headerEL.style.display = "contents";
             imgEL.style.display = "flex";
-            imgEL.style.margin = "auto";
+            imgEL.style.margin = "0 auto 30px";
             imgEL.setAttribute("src", "../img/task-actions.png");
             timerEL.style.display = "none";
             btnEL.style.position = "relative";
-            btnEL.style.top = "70%";
+            btnEL.style.top = "30%";
             btnEL.style.display = "block";
             btnEL.textContent = "ทำข้อสอบอีกครั้ง";
-            headerEL.innerHTML = `${await scoreSummary(score)}`;
+            const [s, avr] = await scoreSummary(score);
+            headerEL.innerHTML = `คุณสอบได้ ${s} คะแนน <br>ค่าเฉลี่ยของคุณคือ ${avr}`;
         }
         async function scoreSummary(s) {
-            return `คุณสอบได้ ${s} คะแนน`;
+            let average = s / 10;
+            return [s, average];
         }
         async function repeatExam() {
             (async () => {
@@ -123,6 +136,9 @@ async function start() {
             completed = !completed;
             count = idx = score = 0;
             minutes = seconds = 0;
+            for (const choice of allChoice) {
+                choice.checked = false;
+            }
             // userAnswer.length = 0;
             console.clear();
             changeQuestion();
@@ -135,12 +151,6 @@ async function start() {
             labelEL.d.textContent = data[idx].d;
         }
         async function calculateScore() {
-            const allChoice = [
-                inputEL.ans_a,
-                inputEL.ans_b,
-                inputEL.ans_c,
-                inputEL.ans_d,
-            ];
             const arrayBool = [
                 ...allChoice.map((bool) => bool.checked),
             ];
@@ -151,6 +161,7 @@ async function start() {
                         n += 1;
                 });
                 if (n > 1 || n === 4) {
+                    statusError = !statusError;
                     alert(new Error("Error! โปรดทำตามข้อแนะนำเหล่านี้\n- ไม่สามารถติ้กเลือกข้อสอบ 2 ช่องหรือมากว่านี้ได้ติ้กได้แค่ช่องเดียว\n- โปรดเลือกข้อหรือช้อยก่อนกดปุ่มไปข้อต่อไป"));
                     window.location.reload();
                 }
@@ -171,13 +182,15 @@ async function start() {
     })
         .catch((err) => console.error(err));
 }
+const s = 1000;
 async function timer() {
+    const render = document.querySelector("#render-time");
     setInterval(async () => {
         seconds += 1;
         if (seconds === 60) {
             minutes += 1;
             seconds = 0;
         }
-        document.querySelector("#render-time").innerHTML = `${minutes}:${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
-    }, 1000);
+        render.innerHTML = `${minutes}:${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
+    }, s);
 }

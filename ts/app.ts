@@ -37,6 +37,13 @@ const inputEL: Input = {
   ans_d: document.querySelector("#answer-d")!,
 };
 
+const allChoice: HTMLInputElement[] = [
+  inputEL.ans_a,
+  inputEL.ans_b,
+  inputEL.ans_c,
+  inputEL.ans_d,
+];
+
 // const userAnswer: string[] = [];
 let minutes: number = 0;
 let seconds: number = 0;
@@ -91,6 +98,10 @@ async function start(): Promise<void> {
       const MAX: number = 10;
       const answer: string[] = [];
       let completed: boolean = false;
+      let statusError: boolean = false;
+
+      type TupleNum = [number, number];
+
       data.filter(async (a: DataStructure): Promise<void> => {
         answer.push(a.corret);
       });
@@ -102,19 +113,23 @@ async function start(): Promise<void> {
 
       formEL.addEventListener("submit", async (e: Event): Promise<void> => {
         e.preventDefault();
-        calculateScore();
-        idx += 1;
-        count += 1;
-        changeQuestion();
+        if (count < MAX && !statusError) {
+          calculateScore();
+          if (!statusError) {
+            idx += 1;
+            count += 1;
+            changeQuestion();
+          }
+        }
 
-        if (count === MAX) {
-          completed = true;
-          finish();
-        } else if (completed) {
+        if (completed) {
           const ask = confirm(
             "คุณทำข้อสอบเสร็จแล้ว\nคุณต้องการทำข้อสอบอีกครั้งใหม?"
           );
           ask ? repeatExam() : 0;
+        } else if (count === MAX) {
+          completed = true;
+          finish();
         }
       });
 
@@ -132,18 +147,20 @@ async function start(): Promise<void> {
         btnResetEL.style.display = "none";
         headerEL.style.display = "contents";
         imgEL.style.display = "flex";
-        imgEL.style.margin = "auto";
+        imgEL.style.margin = "0 auto 30px";
         imgEL.setAttribute("src", "../img/task-actions.png");
         timerEL.style.display = "none";
         btnEL.style.position = "relative";
-        btnEL.style.top = "70%";
+        btnEL.style.top = "30%";
         btnEL.style.display = "block";
         btnEL.textContent = "ทำข้อสอบอีกครั้ง";
-        headerEL.innerHTML = `${await scoreSummary(score)}`;
+        const [s, avr]: TupleNum = await scoreSummary(score);
+        headerEL.innerHTML = `คุณสอบได้ ${s} คะแนน <br>ค่าเฉลี่ยของคุณคือ ${avr}`;
       }
 
-      async function scoreSummary(s: number): Promise<string> {
-        return `คุณสอบได้ ${s} คะแนน`;
+      async function scoreSummary(s: number): Promise<TupleNum> {
+        let average: number = s / 10;
+        return [s, average];
       }
 
       async function repeatExam(): Promise<void> {
@@ -159,6 +176,9 @@ async function start(): Promise<void> {
         completed = !completed;
         count = idx = score = 0;
         minutes = seconds = 0;
+        for (const choice of allChoice) {
+          choice.checked = false;
+        }
         // userAnswer.length = 0;
         console.clear();
         changeQuestion();
@@ -175,12 +195,6 @@ async function start(): Promise<void> {
       }
 
       async function calculateScore(): Promise<void> {
-        const allChoice: HTMLInputElement[] = [
-          inputEL.ans_a,
-          inputEL.ans_b,
-          inputEL.ans_c,
-          inputEL.ans_d,
-        ];
         const arrayBool: boolean[] = [
           ...allChoice.map((bool: HTMLInputElement): boolean => bool.checked),
         ];
@@ -190,6 +204,7 @@ async function start(): Promise<void> {
             if (el === b) n += 1;
           });
           if (n > 1 || n === 4) {
+            statusError = !statusError;
             alert(
               new Error(
                 "Error! โปรดทำตามข้อแนะนำเหล่านี้\n- ไม่สามารถติ้กเลือกข้อสอบ 2 ช่องหรือมากว่านี้ได้ติ้กได้แค่ช่องเดียว\n- โปรดเลือกข้อหรือช้อยก่อนกดปุ่มไปข้อต่อไป"
@@ -220,15 +235,17 @@ async function start(): Promise<void> {
     .catch((err: unknown) => console.error(err));
 }
 
+const s:number = 1000;
 async function timer(): Promise<void> {
+  const render:HTMLParagraphElement = document.querySelector("#render-time")!;
   setInterval(async (): Promise<void> => {
     seconds += 1;
     if (seconds === 60) {
       minutes += 1;
       seconds = 0;
     }
-    document.querySelector("#render-time")!.innerHTML = `${minutes}:${
+    render.innerHTML = `${minutes}:${
       seconds < 10 ? `0${seconds}` : `${seconds}`
     }`;
-  }, 1000);
+  }, s);
 }
