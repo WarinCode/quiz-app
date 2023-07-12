@@ -115,6 +115,11 @@ async function start(): Promise<void> {
         e.preventDefault();
         if (count < MAX && !statusError) {
           calculateScore();
+          (async ():Promise<void> => {
+            allChoice.forEach(async (choice:HTMLInputElement):Promise<void> => {
+              choice.checked = false;
+            })
+          })();
           if (!statusError) {
             idx += 1;
             count += 1;

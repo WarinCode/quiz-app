@@ -80,6 +80,11 @@ async function start() {
             e.preventDefault();
             if (count < MAX && !statusError) {
                 calculateScore();
+                (async () => {
+                    allChoice.forEach(async (choice) => {
+                        choice.checked = false;
+                    });
+                })();
                 if (!statusError) {
                     idx += 1;
                     count += 1;
